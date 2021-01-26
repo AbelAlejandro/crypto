@@ -1,4 +1,4 @@
-package com.jester.crypto.restservice;
+package com.jester.crypto.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jester.crypto.DTO.Bpi;
