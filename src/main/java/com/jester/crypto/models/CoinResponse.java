@@ -3,9 +3,6 @@ package com.jester.crypto.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CoinResponse {
-    public CoinResponse() {
-    }
-
     @JsonProperty
     Time TimeObject;
     @JsonProperty

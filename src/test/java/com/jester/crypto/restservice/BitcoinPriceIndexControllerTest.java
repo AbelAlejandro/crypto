@@ -14,9 +14,8 @@ import static org.mockito.Mockito.*;
 class BitcoinPriceIndexControllerTest {
 
     @Mock BitcoinPriceIndexClient bitcoinPriceIndexClient;
+    @InjectMocks BitcoinPriceIndexController bitcoinPriceIndexController;
 
-    @InjectMocks
-    BitcoinPriceIndexController bitcoinPriceIndexController;
     @BeforeEach
     void setUp() {
     }

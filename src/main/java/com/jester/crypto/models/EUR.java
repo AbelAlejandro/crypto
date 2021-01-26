@@ -3,9 +3,6 @@ package com.jester.crypto.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class EUR {
-    public EUR() {
-    }
-
     @JsonProperty
     private String code;
     @JsonProperty
