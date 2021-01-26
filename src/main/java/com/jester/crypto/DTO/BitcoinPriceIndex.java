@@ -1,4 +1,4 @@
-package com.jester.crypto.models;
+package com.jester.crypto.DTO;
 
 public class BitcoinPriceIndex{
     private float rate;
