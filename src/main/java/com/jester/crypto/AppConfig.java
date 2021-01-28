@@ -1,8 +1,11 @@
 package com.jester.crypto;
 
-import com.jester.crypto.jobs.BitcoinPriceIndexJob;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InjectionPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 
@@ -11,7 +14,12 @@ import org.springframework.web.client.RestTemplate;
 public class AppConfig {
     @Bean
     public RestTemplate restTemplate() {
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate;
+        return new RestTemplate();
+    }
+
+    @Bean
+    @Scope("prototype")
+    Logger logger(InjectionPoint injectionPoint) {
+        return LoggerFactory.getLogger(injectionPoint.getMethodParameter().getContainingClass());
     }
 }

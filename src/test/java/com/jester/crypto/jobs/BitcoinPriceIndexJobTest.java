@@ -1,13 +1,12 @@
-package com.jester.crypto.rest;
+package com.jester.crypto.jobs;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jester.crypto.DTO.Bpi;
 import com.jester.crypto.DTO.CoinResponse;
 import com.jester.crypto.DTO.EUR;
 import com.jester.crypto.DTO.Time;
 import com.jester.crypto.clients.BitcoinPriceIndexClient;
-import com.jester.crypto.models.HistoricalPrice;
-import com.jester.crypto.repositories.HistoricalPriceRepository;
+import com.jester.crypto.services.BitcoinPriceDBService;
+import org.slf4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -16,10 +15,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.mockito.Mockito.*;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
-class BitcoinPriceIndexControllerTest {
+class BitcoinPriceIndexJobTest {
     public static final float RATE_FLOAT = 26081.0669f;
-    private static final EUR EUR = new EUR.EURBuilder()
+    private static final com.jester.crypto.DTO.EUR EUR = new EUR.EURBuilder()
             .rate_float(RATE_FLOAT)
             .code("EUR")
             .symbol("&euro;")
@@ -39,24 +40,20 @@ class BitcoinPriceIndexControllerTest {
             .withChartName("Bitcoin")
             .withDisclaimer("A long disclaimer")
             .build();
-    private static final HistoricalPrice HISTORICAL_PRICE = new HistoricalPrice
-            .Builder(RATE_FLOAT)
-            .with(UPDATED_ISO)
-            .build();
 
     @Mock BitcoinPriceIndexClient bitcoinPriceIndexClient;
-    @Mock HistoricalPriceRepository historicalPriceRepository;
-    @InjectMocks BitcoinPriceIndexController bitcoinPriceIndexController;
+    @Mock BitcoinPriceDBService bitcoinPriceDBService;
+    @Mock Logger log;
+    @InjectMocks BitcoinPriceIndexJob bitcoinPriceIndexJob;
 
     @BeforeEach
     void setUp() {
     }
 
     @Test
-    void itReturnsBitcoinPriceIndex() throws JsonProcessingException {
+    void itRegistersCurrentBitcoinPrice() {
         when(bitcoinPriceIndexClient.getExchange()).thenReturn(COIN_RESPONSE);
-        when(historicalPriceRepository.save(HISTORICAL_PRICE)).thenReturn(HISTORICAL_PRICE);
-        bitcoinPriceIndexController.bitcoinPriceIndex();
+        bitcoinPriceIndexJob.registerCurrentBitcoinPrice();
         verify(bitcoinPriceIndexClient, times(1)).getExchange();
     }
 }

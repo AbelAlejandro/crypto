@@ -14,6 +14,18 @@ public class HistoricalPrice {
     private String date_time;
     private float rate;
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getDate_time() {
+        return date_time;
+    }
+
+    public float getRate() {
+        return rate;
+    }
+
     public static class Builder {
         private String date_time;
         private float rate;
