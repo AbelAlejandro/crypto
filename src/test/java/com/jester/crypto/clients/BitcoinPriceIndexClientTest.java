@@ -1,7 +1,6 @@
 package com.jester.crypto.clients;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jester.crypto.DTO.Bpi;
 import com.jester.crypto.DTO.CoinResponse;

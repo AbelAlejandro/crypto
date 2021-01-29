@@ -13,6 +13,12 @@ public class BitcoinPriceIndexController {
     @GetMapping("/price")
     public String bitcoinPriceIndex() {
         CoinResponse coinResponse = bitcoinPriceIndexClient.getExchange();
-        return coinResponse.getBpi().getEUR().getRate();
+
+        return coinResponse.getBpi().getEUR().getRate() + " at " + coinResponse.getTime().getUpdatedISO();
+    }
+
+    @GetMapping("/slope")
+    public String slopeOfBTC() {
+        return String.format("Slope value is: %f", bitcoinPriceIndexClient.getSlopeValue());
     }
 }
