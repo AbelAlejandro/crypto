@@ -39,6 +39,15 @@ public class Time {
         this.updateduk = updateduk;
     }
 
+    @Override
+    public String toString() {
+        return "Time{" +
+          "updated='" + updated + '\'' +
+          ", updatedISO='" + updatedISO + '\'' +
+          ", updateduk='" + updateduk + '\'' +
+          '}';
+    }
+
     public static class TimeBuilder {
 
         private String updated;

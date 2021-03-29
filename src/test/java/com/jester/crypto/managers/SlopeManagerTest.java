@@ -20,7 +20,6 @@ import static org.mockito.Mockito.*;
 class SlopeManagerTest {
     public static final float GREATER_RATE = 26081.0669f;
     public static final float SMALLER_RATE = 26065.0921f;
-    private static final String CURRENTPRICE_JSON = "https://api.coindesk.com/v1/bpi/currentprice.json";
     private static final String RESPONSE = "{\n"+
             "  \"bpi\": {\n" +
             "    \"EUR\": {\n" +

@@ -6,15 +6,16 @@ import com.jester.crypto.DTO.CoinResponse;
 import com.jester.crypto.DTO.EUR;
 import com.jester.crypto.DTO.Time;
 import com.jester.crypto.clients.BitcoinPriceIndexClient;
-import com.jester.crypto.models.HistoricalPrice;
-import com.jester.crypto.repositories.HistoricalPriceRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class BitcoinPriceIndexControllerTest {
@@ -39,23 +40,18 @@ class BitcoinPriceIndexControllerTest {
             .withChartName("Bitcoin")
             .withDisclaimer("A long disclaimer")
             .build();
-    private static final HistoricalPrice HISTORICAL_PRICE = new HistoricalPrice
-            .Builder(RATE_FLOAT)
-            .with(UPDATED_ISO)
-            .build();
 
     @Mock BitcoinPriceIndexClient bitcoinPriceIndexClient;
-    @Mock HistoricalPriceRepository historicalPriceRepository;
     @InjectMocks BitcoinPriceIndexController bitcoinPriceIndexController;
 
     @BeforeEach
     void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
     void itReturnsBitcoinPriceIndex() throws JsonProcessingException {
         when(bitcoinPriceIndexClient.getExchange()).thenReturn(COIN_RESPONSE);
-        when(historicalPriceRepository.save(HISTORICAL_PRICE)).thenReturn(HISTORICAL_PRICE);
         bitcoinPriceIndexController.bitcoinPriceIndex();
         verify(bitcoinPriceIndexClient, times(1)).getExchange();
     }
